@@ -16,7 +16,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: covelo11/journal-server:latest
+      - image: ghcr.io/covelo12/journal-server:v0.0
         imagePullPolicy: Always
         name: frontend
         terminationMessagePath: /dev/termination-log
