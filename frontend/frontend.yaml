@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: frontend
+    app: frontend
   name: frontend
   namespace: default
 spec:
@@ -16,7 +16,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: ghcr.io/covelo12/journal-server:v0.0
+      - image: ghcr.io/covelo12/journal-server:v0.1
         imagePullPolicy: Always
         name: frontend
         terminationMessagePath: /dev/termination-log

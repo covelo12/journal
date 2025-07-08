@@ -2,23 +2,32 @@ const http = require('http');
 const redis = require('redis');
 
 const client = redis.createClient({
-    'host': '127.0.0.1'
+    host: '127.0.0.1'
 });
 
 const port = 8080;
 
 const requestHandler = (request, response) => {
     console.log(request.url);
+
     if (!request.url.startsWith('/api')) {
         response.writeHead(404);
         response.end('Not found');
         return;
     }
-    if (request.method != 'GET' && request.method != 'POST') {
+
+    if (request.url === '/api/health') {
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify({ status: 'ok' }));
+        return;
+    }
+
+    if (request.method !== 'GET' && request.method !== 'POST') {
         response.writeHead(400);
         response.end('Unsupported method.');
         return;
     }
+
     const key = 'journal-key';
     client.get(key, (err, value) => {
         if (err) {
@@ -26,15 +35,18 @@ const requestHandler = (request, response) => {
             response.end(err.toString());
             return;
         }
-        var journals = [];
+
+        let journals = [];
         if (value) {
             journals = JSON.parse(value);
         }
-        if (request.method == 'GET') {
-            response.writeHead(200);
+
+        if (request.method === 'GET') {
+            response.writeHead(200, { 'Content-Type': 'application/json' });
             response.end(JSON.stringify(journals));
         }
-        if (request.method == 'POST') {
+
+        if (request.method === 'POST') {
             try {
                 let body = [];
                 request.on('data', (chunk) => {
@@ -44,25 +56,22 @@ const requestHandler = (request, response) => {
                     const msg = JSON.parse(body);
                     journals.push(msg);
                     client.set(key, JSON.stringify(journals));
-                    response.writeHead(200);
+                    response.writeHead(200, { 'Content-Type': 'application/json' });
                     response.end(JSON.stringify(journals));
                 });
             } catch (err) {
-                response.writeHeader(500);
+                response.writeHead(500);
                 response.end(err.toString());
-                return;
             }
         }
     });
-    return;
-}
+};
 
 const server = http.createServer(requestHandler);
 
 server.listen(port, (err) => {
-  if (err) {
-    return console.log('could not start server', err);
-  }
-
-  console.log('api server up and running.');
-})
+    if (err) {
+        return console.log('could not start server', err);
+    }
+    console.log('api server up and running.');
+});
