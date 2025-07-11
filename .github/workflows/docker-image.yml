@@ -40,6 +40,7 @@ jobs:
       - name: debug
         id: debug
         run: |
+          cd fileserver
           echo "--- Current Working Directory ---"
           pwd
 
@@ -71,7 +72,7 @@ jobs:
 
           echo "Building image: ${REPO_FULL_PATH}:${VERSION_TAG}"
 
-          docker build ./fileserver/Dockerfile --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
+          docker build . --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
           docker push "${REPO_FULL_PATH}:${VERSION_TAG}"
 
           echo "Pushed image: ${REPO_FULL_PATH}:${VERSION_TAG}"
