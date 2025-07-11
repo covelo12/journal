@@ -5,7 +5,9 @@ on:
     paths:
     -  "fileserver/fileserver.py"
     - "fileserver/Dockerfile"
-    
+
+  workflow_dispatch: # This adds the manual trigger with no inputs   
+
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
@@ -35,6 +37,23 @@ jobs:
           # Use the built-in GITHUB_TOKEN for authentication
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: debug
+        id: debug
+        run: |
+          echo "--- Current Working Directory ---"
+          pwd
+
+          echo "--- File Tree (ls -R ./) ---"
+          # -R: Recursively list subdirectories encountered.
+          # -F: Append a character (`/` for directories, `*` for executables, etc.)
+          # .: List from the current directory (repository root)
+          ls -RF .
+
+          # --- Optional: If you prefer a 'tree' like output and don't mind installing it ---
+          # echo "--- File Tree (tree -L 3 -F .) ---"
+          # sudo apt-get update && sudo apt-get install -y tree # Install tree if not present
+          # tree -L 3 -F . # -L 3 limits depth to 3 levels, -F appends type characters
+
       - name: Build and push Docker image with SHA tag to GHCR
         id: docker_build
         run: |
@@ -52,7 +71,7 @@ jobs:
 
           echo "Building image: ${REPO_FULL_PATH}:${VERSION_TAG}"
 
-          docker build ./fileserver/ --file Dockerfile --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
+          docker build ./fileserver/Dockerfile --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
           docker push "${REPO_FULL_PATH}:${VERSION_TAG}"
 
           echo "Pushed image: ${REPO_FULL_PATH}:${VERSION_TAG}"
