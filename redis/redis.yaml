@@ -18,9 +18,12 @@ spec:
           configMap: 
             name: redis-config
             defaultMode: 0777
+        - name: password-volume
+          secret:
+            secretName: redis-password
       containers:
       - name: redis
-        image: redis:5-alphine
+        image: redis:5-alpine
         ports:
         - containerPort: 6379
           name: redis
