@@ -5,7 +5,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy only necessary files
-COPY app.py ./fileserver.py
+COPY ./fileserver.py app.py
 
 RUN pip install --no-cache-dir flask
 
