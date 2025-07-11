@@ -1,0 +1,19 @@
+apiVersion: v1
+data:
+  launch.sh: |
+    #!bin/sh
+
+    PASSWORD=$(cat /etc/redis-password/redis.conf)
+
+    if [[ "${HOSTNAME}" == "redis-0" ]]; then
+      redis-server --requirepass ${PASSWORD}
+    else
+      redis-server --slaveof redis-0.redis 6379 --masterauth ${PASSWORD} --requirepass ${PASSWORD}
+    fi
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2025-07-11T09:55:33Z"
+  name: redis-config
+  namespace: default
+  resourceVersion: "51591"
+  uid: 9dc29dbe-4c9c-4560-b3e2-8d6ed2bb7560

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis # has to match .spec.template.metadata.labels
+  serviceName: "redis"
+  replicas: 3 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: redis # has to match .spec.selector.matchLabels
+    spec:
+      volumes:
+        - name: script
+          configMap: 
+            name: redis-config
+            defaultMode: 0777
+      containers:
+      - name: redis
+        image: redis:5-alphine
+        ports:
+        - containerPort: 6379
+          name: redis
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: script
+          mountPath: /script/launch.sh
+          subPath: launch.sh
+        - name: password-volume
+          mountPath: /etc/redis-password
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 3Gi
