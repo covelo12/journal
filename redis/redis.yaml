@@ -35,6 +35,10 @@ spec:
           subPath: launch.sh
         - name: password-volume
           mountPath: /etc/redis-password
+        command:
+        - sh
+        - -c
+        - /script/launch.sh
   volumeClaimTemplates:
   - metadata:
       name: data

@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   launch.sh: |
-    #!bin/sh
+    #!/bin/sh
 
     PASSWORD=$(cat /etc/redis-password/redis.conf)
 

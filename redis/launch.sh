@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 
 PASSWORD=$(cat /etc/redis-password/redis.conf)
 
