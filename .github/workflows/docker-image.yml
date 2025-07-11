@@ -4,6 +4,7 @@ on:
   push:
     paths:
     -  "fileserver/fileserver.py"
+    - "fileserver/Dockerfile"
     
 jobs:
   build_and_push:
