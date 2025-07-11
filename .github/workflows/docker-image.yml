@@ -51,7 +51,7 @@ jobs:
 
           echo "Building image: ${REPO_FULL_PATH}:${VERSION_TAG}"
 
-          docker build . --file Dockerfile --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
+          docker build ./fileserver/ --file Dockerfile --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
           docker push "${REPO_FULL_PATH}:${VERSION_TAG}"
 
           echo "Pushed image: ${REPO_FULL_PATH}:${VERSION_TAG}"
