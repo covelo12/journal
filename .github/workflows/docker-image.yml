@@ -4,21 +4,7 @@ on:
   push:
     paths:
     -  "fileserver/fileserver.py"
-
-Okay, here's a GitHub Actions workflow that tags your Docker image using a short Git commit SHA, and optionally includes the branch name for even more context, plus a latest tag for the main branch.
-
-This is an excellent strategy for CI/CD development builds because it clearly links the image back to the exact code it was built from.
-YAML
-
-name: Docker Build with Commit SHA Tag
-
-on:
-  push:
-    branches:
-      - main
-      - develop
-      - 'feature/**' # Also trigger for any feature branches
-
+    
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
