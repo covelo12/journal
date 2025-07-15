@@ -3,10 +3,11 @@ name: Docker Image CI
 on:
   push:
     paths:
-    -  "fileserver/fileserver.py"
-    - "fileserver/Dockerfile"
+      - "fileserver/fileserver.py"
+      - "fileserver/Dockerfile"
+      - "fileserver/public/*"
 
-  workflow_dispatch: # This adds the manual trigger with no inputs   
+  workflow_dispatch: # This adds the manual trigger with no inputs
 
 jobs:
   build_and_push:
