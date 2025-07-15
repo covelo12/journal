@@ -3,13 +3,13 @@ import os
 
 app = Flask(__name__, static_folder='public')
 
-@app.route('/post')
+@app.route('/site/post')
 def post_page():
-    return send_from_directory(app.static_folder, 'post.html')
-
-@app.route('/news')
-def news_page():
     return send_from_directory(app.static_folder, 'news.html')
+
+@app.route('/site/news')
+def news_page():
+    return send_from_directory(app.static_folder, 'index.html')
 #test
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

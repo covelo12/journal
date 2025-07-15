@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Journal Entry</title>
+</head>
+<body>
+    <h1>New Entry</h1>
+    <form id="entryForm">
+        <textarea name="content" rows="5" cols="30" required></textarea><br>
+        <button type="submit">Save</button>
+    </form>
+    <a href="index.html">Back to list</a>
+
+    <script>
+        document.getElementById('entryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const content = this.elements['content'].value;
+            fetch('/api/journal', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ content })
+            })
+            .then(res => res.json())
+            .then(() => {
+                window.location.href = 'index.html';
+            })
+            .catch(err => console.error(err));
+        });
+    </script>
+</body>
+</html>
