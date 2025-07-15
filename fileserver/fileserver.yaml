@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: file-server
-          image: ghcr.io/covelo12/journal:master-1c937e6
+          image: ghcr.io/covelo12/journal:master-67bc254
           imagePullPolicy: Always
           resources:
             requests:

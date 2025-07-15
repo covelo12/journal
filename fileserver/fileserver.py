@@ -10,6 +10,11 @@ def post_page():
 @app.route('/site/news')
 def news_page():
     return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/site')
+def site_root():
+    return "Site root working"
+
 #test
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
