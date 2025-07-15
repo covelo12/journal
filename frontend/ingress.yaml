@@ -18,6 +18,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: frontend
+                name: file-server
                 port:
                   number: 8080
