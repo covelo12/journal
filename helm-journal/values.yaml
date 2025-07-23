@@ -1,0 +1,15 @@
+fileserver:
+  replicas: 1
+  image: 
+    repository: ghcr.io/covelo12/journal
+    tag: master-edb432f
+
+frontend:
+  replicas: 2
+  image:
+    repository: ghcr.io/covelo12/journal-server
+    tag: v0.1
+
+redis:
+  replicas: 3
+  namespace: redis

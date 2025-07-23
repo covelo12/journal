@@ -4,13 +4,13 @@ metadata:
   labels:
     app: frontend
   name: frontend
-  namespace: default
+  namespace: {{ .Release.Namespace }}
 spec:
   ports:
-  - name: default
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
+    - name: default
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
   selector:
     app: frontend
   type: ClusterIP

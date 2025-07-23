@@ -14,6 +14,6 @@ kind: ConfigMap
 metadata:
   creationTimestamp: "2025-07-11T09:55:33Z"
   name: redis-config
-  namespace: default
+  namespace: {{ .Release.Namespace }}
   resourceVersion: "51591"
   uid: 9dc29dbe-4c9c-4560-b3e2-8d6ed2bb7560

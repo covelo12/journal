@@ -4,6 +4,7 @@ metadata:
   labels:
     app: redis-write
   name: redis-write
+  namespace: {{ .Release.Namespace }}
 spec:
   clusterIP: None
   ports:
