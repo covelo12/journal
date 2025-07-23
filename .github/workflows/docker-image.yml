@@ -3,9 +3,9 @@ name: Docker Image CI
 on:
   push:
     paths:
-      - "fileserver/fileserver.py"
-      - "fileserver/Dockerfile"
-      - "fileserver/public/*"
+      - "app/fileserver/fileserver.py"
+      - "app/fileserver/Dockerfile"
+      - "app/fileserver/public/*"
 
   workflow_dispatch: # This adds the manual trigger with no inputs
 
@@ -55,7 +55,7 @@ jobs:
 
           echo "Building image: ${REPO_FULL_PATH}:${VERSION_TAG}"
 
-          docker build ./fileserver --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
+          docker build ./app/fileserver --tag "${REPO_FULL_PATH}:${VERSION_TAG}"
           docker push "${REPO_FULL_PATH}:${VERSION_TAG}"
 
           echo "Pushed image: ${REPO_FULL_PATH}:${VERSION_TAG}"
